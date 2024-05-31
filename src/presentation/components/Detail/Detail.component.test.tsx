@@ -17,4 +17,19 @@ describe("Detail component", () => {
 		expect(getByText("Description:")).toBeInTheDocument();
 		expect(getByText(props.description)).toBeInTheDocument();
 	});
+
+	it("renders the detail component with the correct CSS classes", () => {
+		const { container } = render(<Detail {...props} />);
+		const detailContainer = container.firstChild;
+		expect(detailContainer).toHaveClass(
+			"flex",
+			"flex-col",
+			"border",
+			"rounded-lg",
+			"p-4",
+			"shadow-md",
+			"w-1/6",
+			"gap-4",
+		);
+	});
 });
