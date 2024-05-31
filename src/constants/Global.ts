@@ -1,1 +1,1 @@
-export const LIMIT_EPISODES= 20;
+export const LIMIT_EPISODES = 20;

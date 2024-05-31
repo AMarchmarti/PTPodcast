@@ -1,4 +1,4 @@
-import ErrorResponse from "@/domain/model/Error/ErrorResponse";
+import type ErrorResponse from "@/domain/model/Error/ErrorResponse";
 import HttpMethod from "@/domain/model/HTTP/HttpMethod";
 import { HTTP_SUCCESS_STATUS } from "@/domain/model/HTTP/ResponseStatus";
 
@@ -6,18 +6,18 @@ import { HTTP_SUCCESS_STATUS } from "@/domain/model/HTTP/ResponseStatus";
  * Represents the fetch options for making an HTTP request.
  */
 interface Fetch {
-  path: string | RequestInfo;
-  body?: any;
-  method?: HttpMethod;
-  mode?: RequestMode;
-  extraHeaders?: any;
+	path: string | RequestInfo;
+	body?: any;
+	method?: HttpMethod;
+	mode?: RequestMode;
+	extraHeaders?: any;
 }
 
 /**
  * Represents the petition options for making an HTTP request.
  */
 interface PetitionI extends Omit<Fetch, "extraHeaders" | "method"> {
-  headers?: any;
+	headers?: any;
 }
 
 /**
@@ -26,23 +26,23 @@ interface PetitionI extends Omit<Fetch, "extraHeaders" | "method"> {
  * @returns A promise that resolves to an ErrorResponse object.
  */
 const parseError = async (response: Response): Promise<ErrorResponse> => {
-  let error: ErrorResponse;
-  try {
-    const errorJson = await response.json();
-    error = {
-      status: response.status,
-      error: errorJson.errorCode,
-      message: errorJson.error || "",
-    };
-  } catch (e) {
-    error = {
-      status: response.status,
-      error: response.statusText,
-      message: "",
-    };
-  }
+	let error: ErrorResponse;
+	try {
+		const errorJson = await response.json();
+		error = {
+			status: response.status,
+			error: errorJson.errorCode,
+			message: errorJson.error || "",
+		};
+	} catch (e) {
+		error = {
+			status: response.status,
+			error: response.statusText,
+			message: "",
+		};
+	}
 
-  return error;
+	return error;
 };
 
 /**
@@ -52,18 +52,18 @@ const parseError = async (response: Response): Promise<ErrorResponse> => {
  * @throws If the response status is not a success status.
  */
 const createResponse = async (response: Response): Promise<any> => {
-  const responseStatus = response.status;
-  let result: any;
-  if (!HTTP_SUCCESS_STATUS.includes(responseStatus)) {
-    const responseData = await parseError(response);
-    throw responseData;
-  }
-  try {
-    result = await response.json();
-  } catch (e) {
-    result = response;
-  }
-  return result;
+	const responseStatus = response.status;
+	let result: any;
+	if (!HTTP_SUCCESS_STATUS.includes(responseStatus)) {
+		const responseData = await parseError(response);
+		throw responseData;
+	}
+	try {
+		result = await response.json();
+	} catch (e) {
+		result = response;
+	}
+	return result;
 };
 
 /**
@@ -72,32 +72,32 @@ const createResponse = async (response: Response): Promise<any> => {
  * @returns A promise that resolves to the response data.
  */
 const fetchRequest = ({
-  path,
-  body,
-  method,
-  mode,
-  extraHeaders,
+	path,
+	body,
+	method,
+	mode,
+	extraHeaders,
 }: Fetch): Promise<any> =>
-  new Promise((resolve, reject) => {
-    const sendInformation = body
-      ? {
-          method: method,
-          body: JSON.stringify(body),
-        }
-      : {};
-    fetch(path, {
-      mode: mode || "cors",
-      headers: {
-        ...extraHeaders,
-      },
-      ...sendInformation,
-    })
-      .then((response) => {
-        return createResponse(response);
-      })
-      .then(resolve)
-      .catch(reject);
-  });
+	new Promise((resolve, reject) => {
+		const sendInformation = body
+			? {
+					method: method,
+					body: JSON.stringify(body),
+				}
+			: {};
+		fetch(path, {
+			mode: mode || "cors",
+			headers: {
+				...extraHeaders,
+			},
+			...sendInformation,
+		})
+			.then((response) => {
+				return createResponse(response);
+			})
+			.then(resolve)
+			.catch(reject);
+	});
 
 /**
  * Sends an HTTP GET request.
@@ -105,7 +105,7 @@ const fetchRequest = ({
  * @returns A promise that resolves to the response data.
  */
 export const get = ({ path, headers, mode }: PetitionI) =>
-  fetchRequest({ path, extraHeaders: headers, mode });
+	fetchRequest({ path, extraHeaders: headers, mode });
 
 /**
  * Sends an HTTP POST request.
@@ -113,13 +113,13 @@ export const get = ({ path, headers, mode }: PetitionI) =>
  * @returns A promise that resolves to the response data.
  */
 export const post = ({ path, headers, mode, body }: PetitionI) =>
-  fetchRequest({
-    path,
-    body,
-    method: HttpMethod.POST,
-    extraHeaders: headers,
-    mode,
-  });
+	fetchRequest({
+		path,
+		body,
+		method: HttpMethod.POST,
+		extraHeaders: headers,
+		mode,
+	});
 
 /**
  * Sends an HTTP PUT request.
@@ -127,28 +127,28 @@ export const post = ({ path, headers, mode, body }: PetitionI) =>
  * @returns A promise that resolves to the response data.
  */
 export const put = ({ path, headers, mode, body }: PetitionI) =>
-  fetchRequest({
-    path,
-    body,
-    method: HttpMethod.PUT,
-    extraHeaders: headers,
-    mode,
-  });
+	fetchRequest({
+		path,
+		body,
+		method: HttpMethod.PUT,
+		extraHeaders: headers,
+		mode,
+	});
 
 export const patch = ({ path, headers, mode, body }: PetitionI) =>
-  fetchRequest({
-    path,
-    body,
-    method: HttpMethod.PATCH,
-    extraHeaders: headers,
-    mode,
-  });
+	fetchRequest({
+		path,
+		body,
+		method: HttpMethod.PATCH,
+		extraHeaders: headers,
+		mode,
+	});
 
 export const delet = ({ path, headers, mode, body }: PetitionI) =>
-  fetchRequest({
-    path,
-    body,
-    method: HttpMethod.DELETE,
-    extraHeaders: headers,
-    mode,
-  });
+	fetchRequest({
+		path,
+		body,
+		method: HttpMethod.DELETE,
+		extraHeaders: headers,
+		mode,
+	});
