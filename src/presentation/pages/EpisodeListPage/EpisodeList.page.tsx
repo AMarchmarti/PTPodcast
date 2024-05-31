@@ -43,10 +43,16 @@ export const EpisodeListPage = () => {
 								duration: formatTime(episode.trackTimeMillis),
 							};
 						});
-
+					const podcast = episodes.results.find(
+						(episode) => episode.kind === "podcast",
+					);
 					return (
-						<section className="flex w-full flex-col gap-20">
-							<div />
+						<section className="flex w-full flex-col gap-8">
+							<div className="border rounded-md shadow-md p-4">
+								<h2 className="text-xl font-bold">
+									Results: {podcast?.trackCount}
+								</h2>
+							</div>
 							<div className="flex w-full grow rounded-md border  p-4 shadow-md">
 								<Table
 									data={data}

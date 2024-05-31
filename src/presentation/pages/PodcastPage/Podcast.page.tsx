@@ -16,7 +16,7 @@ export const PodcastPage = () => {
 	return (
 		<Suspense fallback={<div>Loading...</div>}>
 			<Await resolve={data}>
-				{({ podcast }) => {
+				{({ podcast }: { podcast: Podcast }) => {
 					return (
 						<section className="flex w-full gap-20">
 							<Link
