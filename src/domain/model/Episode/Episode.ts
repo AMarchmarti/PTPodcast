@@ -7,6 +7,8 @@ export interface Episode {
 	wrapperType: string;
 	kind: string;
 	artistId: number;
+	description: string;
+	previewUrl: string;
 	collectionId: number;
 	trackId: number;
 	artistName: string;

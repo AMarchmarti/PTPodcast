@@ -5,6 +5,7 @@ import Home from "../pages/Home/Home.page";
 import EpisodeLoader from "./Loaders/episodeLoader";
 import PodcastLoader from "./Loaders/podcastLoader";
 import PodcastsLoader from "./Loaders/podcastsLoader";
+import EpisodesLoader from "./Loaders/episodesLoader";
 
 export const routes: RouteObject[] = [
 	{
@@ -28,7 +29,7 @@ export const routes: RouteObject[] = [
 				children: [
 					{
 						path: "/podcasts/:id/",
-						loader: EpisodeLoader,
+						loader: EpisodesLoader,
 						lazy: async () => {
 							const { EpisodeListPage } = await import(
 								"@/presentation/pages/EpisodeListPage/EpisodeList.page"
@@ -37,7 +38,8 @@ export const routes: RouteObject[] = [
 						},
 					},
 					{
-						path: "podcasts/:id/episodes/:episode",
+						path: "/podcasts/:id/episodes/:episode",
+						loader: EpisodeLoader,
 						lazy: async () => {
 							const { EpisodePage } = await import(
 								"@/presentation/pages/EpisodePage/Episode.page"

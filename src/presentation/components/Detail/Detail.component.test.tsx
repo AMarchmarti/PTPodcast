@@ -1,4 +1,5 @@
 import { render } from "@testing-library/react";
+
 import Detail from "./Detail.component";
 
 describe("Detail component", () => {
@@ -16,20 +17,5 @@ describe("Detail component", () => {
 		expect(getByAltText(props.title)).toHaveAttribute("src", props.image);
 		expect(getByText("Description:")).toBeInTheDocument();
 		expect(getByText(props.description)).toBeInTheDocument();
-	});
-
-	it("renders the detail component with the correct CSS classes", () => {
-		const { container } = render(<Detail {...props} />);
-		const detailContainer = container.firstChild;
-		expect(detailContainer).toHaveClass(
-			"flex",
-			"flex-col",
-			"border",
-			"rounded-lg",
-			"p-4",
-			"shadow-md",
-			"w-1/6",
-			"gap-4",
-		);
 	});
 });

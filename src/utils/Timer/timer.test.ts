@@ -1,32 +1,15 @@
-import { describe, expect, it } from "vitest";
+import { TimerType, getTimer, formatTime } from "./timer";
 
-import { TimerType, getTimer } from "./timer";
-
-describe("getTimer", () => {
-	it("should return the correct time in milliseconds for seconds", () => {
-		const time = 10;
-		const type = TimerType.SECOND;
-
-		const result = getTimer(time, type);
-
-		expect(result).toBe(10000);
+describe("Timer", () => {
+	it("should calculate the timer correctly", () => {
+		expect(getTimer(5, TimerType.SECOND)).toBe(5000);
+		expect(getTimer(10, TimerType.MINUTE)).toBe(600000);
+		expect(getTimer(2, TimerType.HOUR)).toBe(7200000);
 	});
 
-	it("should return the correct time in milliseconds for minutes", () => {
-		const time = 5;
-		const type = TimerType.MINUTE;
-
-		const result = getTimer(time, type);
-
-		expect(result).toBe(300000);
-	});
-
-	it("should return the correct time in milliseconds for hours", () => {
-		const time = 2;
-		const type = TimerType.HOUR;
-
-		const result = getTimer(time, type);
-
-		expect(result).toBe(7200000);
+	it("should format the time correctly", () => {
+		expect(formatTime(5000)).toBe("00:00:05");
+		expect(formatTime(600000)).toBe("00:10:00");
+		expect(formatTime(7200000)).toBe("02:00:00");
 	});
 });

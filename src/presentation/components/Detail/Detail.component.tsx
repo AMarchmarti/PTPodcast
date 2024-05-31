@@ -14,10 +14,10 @@ const Detail: React.FC<DetailProps> = ({
 	description,
 }) => {
 	return (
-		<div className="flex flex-col border rounded-lg p-4 shadow-md w-1/6 gap-4">
+		<div className="flex h-min flex-col gap-4 rounded-lg border  p-4 shadow-md">
 			<div className="flex items-center justify-center p-4">
 				<img
-					className="h-48 object-cover object-center rounded-md shadow-md"
+					className="h-48 rounded-md object-cover object-center shadow-md"
 					src={image}
 					alt={title}
 				/>
