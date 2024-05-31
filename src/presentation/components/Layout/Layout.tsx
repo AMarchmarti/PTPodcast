@@ -1,13 +1,15 @@
-import React from 'react'
-import { Outlet } from 'react-router-dom'
+import React from "react";
+import { Outlet } from "react-router-dom";
 
 const Layout = () => {
-    return (
-        <div>
-            <h1>Layout</h1>
-            <Outlet />
-        </div>
-    )
-}
+	return (
+		<div>
+			<header>Layout</header>
+			<main className="p-16">
+				<Outlet />
+			</main>
+		</div>
+	);
+};
 
-export default Layout
+export default Layout;

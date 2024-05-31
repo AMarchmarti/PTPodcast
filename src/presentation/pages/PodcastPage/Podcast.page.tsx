@@ -1,7 +1,5 @@
-import React from 'react'
+import React from "react";
 
 export const PodcastPage = () => {
-  return (
-    <div>PodcastPage</div>
-  )
-}
+	return <div>PodcastPage</div>;
+};
