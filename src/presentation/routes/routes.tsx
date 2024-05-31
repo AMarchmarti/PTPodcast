@@ -4,6 +4,7 @@ import Layout from "../components/Layout/Layout";
 import Home from "../pages/Home/Home.page";
 import EpisodeLoader from "./Loaders/episodeLoader";
 import PodcastLoader from "./Loaders/podcastLoader";
+import PodcastsLoader from "./Loaders/podcastsLoader";
 
 export const routes: RouteObject[] = [
 	{
@@ -13,7 +14,7 @@ export const routes: RouteObject[] = [
 			{
 				path: "/",
 				element: <Home />,
-				loader: EpisodeLoader,
+				loader: PodcastsLoader,
 			},
 			{
 				path: "/podcasts/:id",
@@ -27,6 +28,7 @@ export const routes: RouteObject[] = [
 				children: [
 					{
 						path: "/podcasts/:id/",
+						loader: EpisodeLoader,
 						lazy: async () => {
 							const { EpisodeListPage } = await import(
 								"@/presentation/pages/EpisodeListPage/EpisodeList.page"
